@@ -25,7 +25,7 @@ Route::post('/hello', [FirstControl::class, 'hello']);
 
 Route::get('/signup', [FirstControl::class, 'signup']);
 
-Route::get('/login', [FirstControl::class, 'login']);
+Route::get('/login/{warn?}', [FirstControl::class, 'login']);
 
 Route::post('/signupMain', [FirstControl::class, 'signupMain']);
 

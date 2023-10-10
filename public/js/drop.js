@@ -27,7 +27,8 @@ search.onkeyup = () => {
       if (xml.status == 200) {
         let data = xml.response
         if(data == 'empty'){
-          location.href = 'login';
+          let warn = 'warn';
+          location.href = '/login/'+warn;
         }else{
           document.querySelector('.filee').innerHTML = data;
           location.href = '#filee';
@@ -38,3 +39,7 @@ search.onkeyup = () => {
   }
   xml.send()
 }
+setTimeout(() => {
+  document.querySelector('#alertBox').style.display = 'none';
+  
+}, 2000);;

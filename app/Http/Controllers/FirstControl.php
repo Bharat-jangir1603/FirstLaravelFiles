@@ -11,9 +11,20 @@ use function Laravel\Prompts\alert;
 
 class FirstControl extends Controller
 {
-    public function login()
+    public function login($warn = null)
     {
-        return view('Ecom.login');
+        $data = [];
+        if($warn == 'warn'){
+            $data['warn'] = 'Please Login to your account before search.';
+        }elseif($warn == 'error'){
+            $data['warn'] = 'Please Login for open files';
+        }
+        elseif($warn == 'dismiss'){
+            $data['warn'] = 'First Login or signup for logout';
+        }else{
+            $data['warn'] = '';
+        }
+        return view('Ecom.login', $data);
     }
     public function signup()
     {
@@ -78,7 +89,8 @@ class FirstControl extends Controller
             $data['signup'] = 'by';
             return view('Ecom.main', $data);
         } else {
-            return redirect()->to('/login');
+            $warn = 'error';
+            return redirect()->to('/login/'.$warn);
         }
     }
     public function uplode(Request $req)
@@ -141,7 +153,8 @@ class FirstControl extends Controller
             echo $in;
         } else {
             echo 'empty';
-            // return redirect()->to('/login');
+            // $warn = 'warn';
+            // return redirect()->to('/login/'.$warn);
         }
     }
     public function logout()
@@ -150,7 +163,8 @@ class FirstControl extends Controller
             session()->flash('id');
             return redirect()->to('/login');
         } else {
-            return redirect()->to('/login');
+            $warn = 'dismiss';
+            return redirect()->to('/login/'.$warn);
         }
     }
 }

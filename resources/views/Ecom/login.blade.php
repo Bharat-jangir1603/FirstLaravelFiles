@@ -4,13 +4,21 @@
 @endphp
 @extends('Ecom.layout', $data)
 @section('contant')
+
     <div class="container" style="margin-top: 110px;">
+      
+      @if ($warn != '') 
+        {!!'<div id="alertBox" class="alert alert-warning" role="alert">
+        Error: '.$warn.'
+      </div>'!!}
+      @endif  
+      
       <h2>Login Form</h2>
-        <form action="hello" method="post">
+        <form action="/hello" method="post">
           @csrf
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="text" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="text" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror @php echo $warn?'is-invalid': ''@endphp " name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
               <span style="color:red;">
                 @error('email')
                     {{ $message }}
@@ -19,7 +27,7 @@
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" name="pass" class="form-control @error('pass') is-invalid @enderror" id="exampleInputPassword1">
+              <input type="password" name="pass" class="form-control @error('pass') is-invalid @enderror @php echo $warn?'is-invalid': ''@endphp" id="exampleInputPassword1">
               <span style="color: red;">
                 @error('pass')
                     {{ $message }}
